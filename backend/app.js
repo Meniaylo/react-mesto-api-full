@@ -36,12 +36,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
-      'https://localhost:3000',
-      'http://localhost:3001',
-      'https://localhost:3001',
+      'http://localhost:3000/sign-in',
+      'https://localhost:3000/sign-in',
+      'http://localhost:3001/sign-in',
+      'https://localhost:3001/sign-in',
       'http://meniaylo.nomoredomains.sbs',
       'https://meniaylo.nomoredomains.sbs',
+      'http://meniaylo.nomoredomains.sbs/sign-in',
+      'https://meniaylo.nomoredomains.sbs/sign-in',
     ],
     credentials: true,
   }),
