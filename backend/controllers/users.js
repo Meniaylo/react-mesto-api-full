@@ -36,7 +36,8 @@ const login = (req, res, next) => {
               .cookie('jwt', token, {
                 httpOnly: true,
                 // secure: true,
-                sameSite: 'None',
+                // sameSite: 'None',
+                sameSite: true,
                 maxAge: 7 * 24 * 60 * 60 * 1000,
               })
               .status(200)
@@ -45,6 +46,7 @@ const login = (req, res, next) => {
                 about: user.about,
                 avatar: user.avatar,
                 email: user.email,
+                token,
               });
           }
         });

@@ -38,7 +38,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkToken();
+    // checkToken();
 
     if (isLoggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -50,22 +50,22 @@ function App() {
         console.log(`Ошибка! ${err}`);
       });
     }
-  }, []);
+  }, [isLoggedIn]);
 
-  const checkToken = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      auth.checkToken(token)
-        .then(res => {
-          setUserEmail(res.data.email);
-          setIsLoggedIn(true);
-          navigate('/');
-        })
-        .catch((err) => {
-          console.log(`Ошибка! ${err}`);
-        })
-    }
-  }
+  // const checkToken = () => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     auth.checkToken(token)
+  //       .then(res => {
+  //         setUserEmail(res.data.email);
+  //         setIsLoggedIn(true);
+  //         navigate('/');
+  //       })
+  //       .catch((err) => {
+  //         console.log(`Ошибка! ${err}`);
+  //       })
+  //   }
+  // }
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
@@ -187,8 +187,9 @@ function App() {
   const handleLoginSubmit = (userData) => {
     auth.login(userData)
       .then((res) => {
+        console.log(res);
         if (res.token) {
-          localStorage.setItem('token', res.token);
+          // localStorage.setItem('token', res.token);
           setIsLoggedIn(true);
           navigate('/');
         }

@@ -1,10 +1,15 @@
-import { apiInfo } from "./utils";
+// import { apiInfo } from "./utils";
 
 class Api {
-  constructor(apiInfo) {
-    this._baseUrl = apiInfo.baseUrl;
-    this._headers = apiInfo.headers;
+  constructor({baseUrl, headers}) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
+
+  // constructor(apiInfo) {
+  //   this._baseUrl = apiInfo.baseUrl;
+  //   this._headers = apiInfo.headers;
+  // }
 
   _handleServerResponse(res) {
     if (res.ok) {
@@ -24,6 +29,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._handleServerResponse(res));
   }
@@ -31,6 +37,7 @@ class Api {
   changeAvatar(avatarUrl) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatarUrl,
@@ -41,6 +48,7 @@ class Api {
   postCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.title,
@@ -52,6 +60,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._handleServerResponse(res));
   }
@@ -59,6 +68,7 @@ class Api {
   setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({ name, about }),
     }).then((res) => this._handleServerResponse(res));
@@ -67,10 +77,18 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? "PUT" : "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._handleServerResponse(res));
   }
 }
 
-const api = new Api(apiInfo);
+// const api = new Api(apiInfo);
+const api = new Api({
+  url:'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
 export default api;
