@@ -1,0 +1,18 @@
+.sign-page__register-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 5px;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: -32px;
+  margin: auto;
+  width: fit-content;
+}
+
+@media screen and (max-width: 720px) {
+  .sign-page__register-container {
+    bottom: -37px;
+  }
+}

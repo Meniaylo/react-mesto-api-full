@@ -1,0 +1,15 @@
+.sign-page {
+  max-width: 358px;
+  min-width: 260px;
+  height: calc(100vh - 123px);
+  padding: 60px 30px 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+  .sign-page {
+    padding: 40px 30px 41px;
+  }
+}

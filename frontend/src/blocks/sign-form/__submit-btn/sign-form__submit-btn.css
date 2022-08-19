@@ -1,0 +1,9 @@
+.sign-form__submit-btn {
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  border: none;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 14px;
+}

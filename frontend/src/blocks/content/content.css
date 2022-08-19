@@ -1,0 +1,22 @@
+.content {
+  width: calc(100% - 400px);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: 36.25px;
+  padding-bottom: 67px;
+}
+
+@media screen and (max-width: 1200px) {
+  .content {
+    width: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .content {
+    width: calc(100% - 38px);
+    padding-top: 38.25px;
+    padding-bottom: 48px;
+  }
+}

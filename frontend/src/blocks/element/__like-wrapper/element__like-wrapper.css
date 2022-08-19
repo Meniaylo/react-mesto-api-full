@@ -1,0 +1,6 @@
+.element__like-wrapper {
+  display: grid;
+  gap: 3px;
+  grid-template-rows: min-content min-content;
+  justify-items: center;
+}

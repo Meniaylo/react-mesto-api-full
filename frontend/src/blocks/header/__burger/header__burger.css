@@ -1,0 +1,35 @@
+.header__burger {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .header__burger {
+    display: block;
+    box-sizing: border-box;
+    margin-right: 30px;
+    margin-top: 3px;
+    position: relative;
+    width: 23px;
+    height: 23px;
+  }
+
+  .header__burger::before {
+    content: '';
+    background-color: #fff;
+    height: 3px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+
+  .header__burger::after {
+    content: '';
+    background-color: #fff;
+    height: 3px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    transition: all .3s ease 0s;
+  }
+}

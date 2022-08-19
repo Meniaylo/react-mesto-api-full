@@ -1,0 +1,17 @@
+.footer {
+  width: calc(100% - 400px);
+  padding-bottom: 60px;
+  /* паддинг был у рута, перенесла сюда, итог еще не видела - там он мешался сделать ему 100vh - проверить!!*/
+}
+
+@media screen and (max-width: 1200px) {
+  .footer {
+    width: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .footer {
+    width: calc(100% - 38px);
+  }
+}
