@@ -16,7 +16,9 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    onAddPlace({ title, cardLink });    
+    onAddPlace({ title, cardLink }); 
+    setTitle("");
+    setCardLink("");
   }
 
   return (

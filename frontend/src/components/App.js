@@ -38,7 +38,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // checkToken();
+    checkIfIsLogged();
 
     if (isLoggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -52,33 +52,35 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  // const checkToken = () => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     auth.checkToken(token)
-  //       .then(res => {
-  //         setUserEmail(res.data.email);
-  //         setIsLoggedIn(true);
-  //         navigate('/');
-  //       })
-  //       .catch((err) => {
-  //         console.log(`Ошибка! ${err}`);
-  //       })
-  //   }
-  // }
+  const checkIfIsLogged = () => {
+    auth.checkIfIsLogged()
+      .then((res) => {
+        if (res.email) {
+          setIsLoggedIn(true);
+          setUserEmail(res.email);
+          navigate('/');
+        } else {
+          navigate('/login');
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка! ${err}`);
+      }) 
+  }
 
   const handleSignOut = () => {
-    localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setUserEmail('');
+    localStorage.setItem('isUserLoged', false);
     navigate('/login');
 }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+    
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
       })
       .catch((err) => {
         console.log(`Ошибка! ${err}`)
@@ -187,10 +189,9 @@ function App() {
   const handleLoginSubmit = (userData) => {
     auth.login(userData)
       .then((res) => {
-        console.log(res);
-        if (res.token) {
-          // localStorage.setItem('token', res.token);
+        if (res.email) {
           setIsLoggedIn(true);
+          localStorage.setItem('isUserLoged', true);
           navigate('/');
         }
       })

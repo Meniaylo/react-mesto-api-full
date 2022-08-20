@@ -1,15 +1,8 @@
-// import { apiInfo } from "./utils";
-
 class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
-
-  // constructor(apiInfo) {
-  //   this._baseUrl = apiInfo.baseUrl;
-  //   this._headers = apiInfo.headers;
-  // }
 
   _handleServerResponse(res) {
     if (res.ok) {
@@ -22,6 +15,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._handleServerResponse(res));
   }
@@ -83,9 +78,9 @@ class Api {
   }
 }
 
-// const api = new Api(apiInfo);
 const api = new Api({
-  url:'http://localhost:3000',
+  baseUrl:'http://localhost:3000',
+  // baseUrl: 'api.meniaylo.nomoredomains.sbs',
   headers: {
     'Content-Type': 'application/json'
   }

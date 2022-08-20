@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -7,7 +8,7 @@ const DataError = require('../errors/data-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
 const ConflictError = require('../errors/conflict-err');
 
-const JWT_SECRET_KEY = 'My-babys-got-a-secret';
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -28,7 +29,7 @@ const login = (req, res, next) => {
           if (isValid) {
             const token = jwt.sign(
               { _id: user._id },
-              JWT_SECRET_KEY,
+              NODE_ENV === 'production' ? JWT_SECRET : 'SECRET_KEY',
               { expiresIn: '7d' },
             );
 
@@ -46,7 +47,7 @@ const login = (req, res, next) => {
                 about: user.about,
                 avatar: user.avatar,
                 email: user.email,
-                token,
+                id: user._id,
               });
           }
         });
@@ -140,8 +141,7 @@ const updateUserProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
-
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -164,7 +164,7 @@ const updateUserAvatar = (req, res, next) => {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
 
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

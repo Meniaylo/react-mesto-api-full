@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 
 const { PORT = 3000 } = process.env;
@@ -27,6 +28,7 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
+app.use(requestLogger);
 app.use(limiter);
 app.use(helmet());
 
@@ -48,7 +50,6 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
