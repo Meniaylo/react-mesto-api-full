@@ -45,6 +45,8 @@ function App() {
       .then(([userData, initialCards]) => {
         setCurrentUser(userData);
         setCards(initialCards);
+        setIsLoggedIn(true);
+        setUserEmail(userData.email);
       })
       .catch((err) => {
         console.log(`Ошибка! ${err}`);

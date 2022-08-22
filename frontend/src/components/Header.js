@@ -18,11 +18,11 @@ const Header = ({ email, handleSignOut }) => {
           <img className="header__logo-img" src={logoPath} alt="Логотип: Место"/>
         </Link>
         <div className={`header__container ${(location.pathname === '/') && 'header__container_state_logged-in'} ${isMenuOpened && (location.pathname === '/') && 'header__container_active'}`}>
-          {location.pathname === '/sign-in' && (
-            <Link className="header__item link" to='/sign-up'>Регистрация</Link>
+          {location.pathname === '/signin' && (
+            <Link className="header__item link" to='/signup'>Регистрация</Link>
           )}
-          {location.pathname === '/sign-up' && (
-            <Link className="header__item link" to='/sign-in'>Вход</Link>
+          {location.pathname === '/signup' && (
+            <Link className="header__item link" to='/signin'>Вход</Link>
           )}
           {location.pathname === '/' && (
             <>
