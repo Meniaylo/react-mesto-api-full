@@ -38,9 +38,9 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkIfIsLogged();
+    // checkIfIsLogged();
 
-    if (isLoggedIn) {
+    // if (isLoggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
         setCurrentUser(userData);
@@ -49,24 +49,25 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка! ${err}`);
       });
-    }
+    // }
   }, [isLoggedIn]);
 
-  const checkIfIsLogged = () => {
-    auth.checkIfIsLogged()
-      .then((res) => {
-        if (res.email) {
-          setIsLoggedIn(true);
-          setUserEmail(res.email);
-          navigate('/');
-        } else {
-          navigate('/login');
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка! ${err}`);
-      }) 
-  }
+  // const checkIfIsLogged = () => {
+  //   api.checkIfIsLogged()
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.email) {
+  //         setIsLoggedIn(true);
+  //         setUserEmail(res.email);
+  //         navigate('/');
+  //       } else {
+  //         navigate('/login');
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Ошибка! ${err}`);
+  //     }) 
+  // }
 
   const handleSignOut = () => {
     setIsLoggedIn(false);
@@ -161,7 +162,7 @@ function App() {
     }));
     if (tooltipState.imgSrc === regOkImgPath) {
       setTimeout(() => {
-        navigate('/sign-in');
+        navigate('/signin');
       }, 444);
     }
   };
@@ -211,8 +212,8 @@ function App() {
         <Header email={userEmail} handleSignOut={handleSignOut} />
     
         <Routes>
-          <Route path='/sign-up' element={<Register onRegister={handleRegisterSubmit} />}/>
-          <Route path='/sign-in' element={<Login onLogin={handleLoginSubmit} />}/>
+          <Route path='/signup' element={<Register onRegister={handleRegisterSubmit} />}/>
+          <Route path='/signin' element={<Login onLogin={handleLoginSubmit} />}/>
           <Route exact path='/' element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
             
@@ -229,7 +230,7 @@ function App() {
               
             </ProtectedRoute>
           }/>
-          <Route path='*' element={isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />}/>
+          <Route path='*' element={isLoggedIn ? <Navigate to='/' /> : <Navigate to='/signin' />}/>
         </Routes>
 
         <EditProfilePopup
