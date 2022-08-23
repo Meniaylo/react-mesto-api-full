@@ -72,10 +72,16 @@ function App() {
   // }
 
   const handleSignOut = () => {
-    setIsLoggedIn(false);
-    setUserEmail('');
-    localStorage.setItem('isUserLoged', false);
-    navigate('/login');
+    auth.logout()
+      .then(() => {
+        setIsLoggedIn(false);
+        setUserEmail('');
+        localStorage.setItem('isUserLoged', false);
+        navigate('/login');
+      })
+      .catch((err) => {
+        console.log(`Ошибка! ${err}`)
+      })
 }
 
   const handleCardLike = (card) => {

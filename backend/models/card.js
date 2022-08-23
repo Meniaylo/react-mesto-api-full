@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema({
     required: [true, "Поле 'link' должно быть заполнено"],
     validate: {
       validator(v) {
-        return /^(http|https):\/\/[^ "]+$/.test(v);
+        return /^(https?:\/\/)?([\w.]+)\.([a-z]{2,6}\.?)(\/[\w.]*)*\/?$/.test(v);
       },
       message: (props) => `${props.value} - не ссылка!`,
     },

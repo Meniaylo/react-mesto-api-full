@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const errorsHandler = (err, req, res, next) => {
+const errorsHandler = (err, _req, res, next) => {
   const { statusCode = 500, message } = err;
 
   return res

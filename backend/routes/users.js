@@ -22,13 +22,14 @@ userRouter.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-  }).unknown(true),
+  }),
 }), updateUserProfile);
 
 userRouter.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().uri({ scheme: ['http', 'https'] }),
-  }).unknown(true),
+    // eslint-disable-next-line no-useless-escape
+    avatar: Joi.string().pattern('/^(https?:\/\/)?([\w.]+)\.([a-z]{2,6}\.?)(\/[\w.]*)*\/?$/'),
+  }),
 }), updateUserAvatar);
 
 module.exports = userRouter;
