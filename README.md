@@ -6,6 +6,4 @@
 Бэкенд расположен в директории `backend/`, фронтенд - в `frontend/`.
 # Будьте аккуратны - куки очень качественно прокляты и заряжены на отчаяние.
 
-Ссылка: http://meniaylo.nomoredomains.sbs/  
-Cервер: http://api.meniaylo.nomoredomains.sbs/  
-Публичный IP: 130.193.41.178
+Ссылка: http://meniaylo.nomoredomains.sbs/
