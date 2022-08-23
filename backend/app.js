@@ -61,7 +61,6 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    // eslint-disable-next-line no-useless-escape
     avatar: Joi.string().uri({ scheme: ['http', 'https'] }),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -75,9 +74,9 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-// app.get('/signout', (_req, res) => {
-//   res.clearCookie('jwt').send({ message: 'Вы вышли из приложения, и мы уже скучаем!' });
-// });
+app.get('/signout', (_req, res) => {
+  res.clearCookie('jwt').send({ message: 'Вы вышли из приложения, и мы уже скучаем!' });
+});
 
 app.use(auth);
 
