@@ -75,9 +75,9 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.get('/signout', (_req, res) => {
-  res.clearCookie('jwt').send({ message: 'Вы вышли из приложения, и мы уже скучаем!' });
-});
+// app.get('/signout', (_req, res) => {
+//   res.clearCookie('jwt').send({ message: 'Вы вышли из приложения, и мы уже скучаем!' });
+// });
 
 app.use(auth);
 
