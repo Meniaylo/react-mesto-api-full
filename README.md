@@ -7,3 +7,5 @@
 # Будьте аккуратны - куки очень качественно прокляты и заряжены на отчаяние.
 
 Ссылка: http://meniaylo.nomoredomains.sbs/
+Домен сервера: http://api.meniaylo.nomoredomains.sbs/
+Публичный IP: 130.193.41.178

@@ -71,11 +71,11 @@ const userController = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        throw new DataError('Введите корректные данные');
+        next(new DataError('Введите корректные данные'));
+      } else {
+        next(err);
       }
-      next(err);
-    })
-    .catch(next);
+    });
 };
 
 const createUser = (req, res, next) => {
@@ -103,34 +103,23 @@ const createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new DataError('Введите корректные данные');
+        next(new DataError('Введите корректные данные'));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким email уже существует'));
+      } else {
+        next(err);
       }
-
-      if (err.code === 11000) {
-        throw new ConflictError('Пользователь с таким email уже существует');
-      }
-
-      next(err);
-    })
-    .catch(next);
+    });
 };
 
 const getUserInfo = (req, res, next) => {
   const userId = req.user._id;
   User.findOne({ _id: userId })
-    .orFail(new Error('NotValidId'))
+    .orFail(() => new NotFoundError('Пользователь по указанному _id не найден'))
     .then((data) => {
       res.send(data);
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        throw new DataError('Введите корректные данные');
-      }
-      if (err.message === 'NotValidId') {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
-      }
-      next(err);
-    })
+    .catch((err) => next(err))
     .catch(next);
 };
 
@@ -146,14 +135,13 @@ const updateUserProfile = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new DataError('Переданы некорректные данные при обновлении профиля');
+        next(new DataError('Переданы некорректные данные при обновлении профиля'));
+      } else if (err.statusCode === 404) {
+        next(new NotFoundError('Пользователь с указанным _id не найден'));
+      } else {
+        next(err);
       }
-      if (err.statusCode === 404) {
-        throw new NotFoundError('Пользователь с указанным _id не найден');
-      }
-      next(err);
-    })
-    .catch(next);
+    });
 };
 
 const updateUserAvatar = (req, res, next) => {
@@ -164,19 +152,17 @@ const updateUserAvatar = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
-
       res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new DataError('Переданы некорректные данные при обновлении аватара');
-      }
-      if (err.statusCode === 404) {
+        next(new DataError('Переданы некорректные данные при обновлении аватара'));
+      } else if (err.statusCode === 404) {
         throw new NotFoundError('Пользователь с указанным _id не найден');
+      } else {
+        next(err);
       }
-      next(err);
-    })
-    .catch(next);
+    });
 };
 
 module.exports = {
