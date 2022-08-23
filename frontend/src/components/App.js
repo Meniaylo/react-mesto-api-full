@@ -195,6 +195,7 @@ function App() {
         if (res.email) {
           setIsLoggedIn(true);
           localStorage.setItem('isUserLoged', true);
+          setUserEmail(res.email);
           navigate('/');
         }
       })
