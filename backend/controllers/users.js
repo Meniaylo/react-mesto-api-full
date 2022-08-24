@@ -158,7 +158,7 @@ const updateUserAvatar = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new DataError('Переданы некорректные данные при обновлении аватара'));
       } else if (err.statusCode === 404) {
-        throw new NotFoundError('Пользователь с указанным _id не найден');
+        next(new NotFoundError('Пользователь с указанным _id не найден'));
       } else {
         next(err);
       }
