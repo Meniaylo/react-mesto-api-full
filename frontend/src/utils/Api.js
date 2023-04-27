@@ -81,27 +81,19 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       credentials: 'include',
-      // headers: this._headers,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
     })
-    // .then(res => {
-    //   if (res.status === 200) {
-    //       return res.json();
-    //   }
-    // })
     .then((res) => this._handleServerResponse(res));
   }
 }
 
 const api = new Api({
   baseUrl: 'https://api.meniaylo.nomoredomains.sbs',
-  // baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
-    // 'access-control-request-headers': 'https://api.meniaylo.nomoredomains.sbs',
   }
 });
 
